@@ -14,7 +14,7 @@
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/jsf_livraria" />
-			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.user" value="fernando" />
 			<property name="javax.persistence.jdbc.password" value="@#H0m3369" />
 
 			<property name="hibernate.hbm2ddl.auto" value="update" />

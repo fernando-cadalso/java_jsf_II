@@ -6,6 +6,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
 
 	<lifecycle>
+		<phase-listener>br.com.caelum.livraria.util.AutorizadorPhaseListener</phase-listener>
 		<phase-listener>br.com.caelum.livraria.util.LogPhaseListener</phase-listener>
 	</lifecycle>
 
