@@ -3,60 +3,67 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="_template.xhtml">
 	<ui:define name="titulo">
-	Novo Autor</ui:define>
+		<p:outputPanel>Novo Autor</p:outputPanel>
+	</ui:define>
 	<ui:define name="conteudo">
-		<h:form>
-			<fieldset>
-				<legend>Dados do Autor</legend>
+		<!-- 	############################### -->
+		<!-- 	FORMULÁRIO DE CADASTRO DE AUTOR -->
+		<!-- 	############################### -->
+		<h:form id="dadosDoAutor">
+			<p:fieldset legend="Dados do Autor">
 				<h:panelGrid columns="3">
-					<h:outputLabel value="ID:" for="id" />
-					<h:outputText value="#{autorBean.autor.id}" />
+					<p:outputLabel value="ID:" for="id" />
+					<p:outputLabel id="id" value="#{autorBean.autor.id}" />
 					<br />
 
-					<h:outputLabel value="Nome:" for="nome" />
-					<h:inputText id="nome" value="#{autorBean.autor.nome}"
+					<p:outputLabel value="Nome:" for="nome" />
+					<p:inputText id="nome" value="#{autorBean.autor.nome}"
 						required="true" requiredMessage="O nome é obrigatório."
 						validatorMessage="O nome deve ter 5 letras no mínimo.">
 						<f:validateLength minimum="5" />
-					</h:inputText>
+						<p:tooltip for="nome" value="Nome completo do autor."
+							position="right" />
+					</p:inputText>
 					<br />
 
-					<h:outputLabel value="Email:" for="email" />
-					<h:inputText id="email" value="#{autorBean.autor.email}">
+					<p:outputLabel value="Email:" for="email" />
+					<p:inputText id="email" value="#{autorBean.autor.email}">
 						<f:passThroughAttribute name="type" value="email" />
-					</h:inputText>
-					<h:messages />
+					</p:inputText>
+					<p:tooltip for="email" value="Informe tudo minúsculo."
+							position="right" />
 
-
-					<h:commandButton value="Gravar" action="#{autorBean.gravar}" />
+					<p:commandButton value="Gravar" action="#{autorBean.gravar}"
+						styleClass="ui-button-success" />
 				</h:panelGrid>
-			</fieldset>
+			</p:fieldset>
 		</h:form>
-		<strong><h:messages></h:messages></strong>
-		<h:form>
-			<h:dataTable value="#{autorBean.autores}" var="autor">
+		<!-- 	############################### -->
+		<!-- 	Lista de autores cadastrados -->
+		<!-- 	############################### -->
+		<h:form id="listaDeAutores">
 
-				<h:column>
-					<f:facet name="header">Nome</f:facet>
-					<h:outputText value="#{autor.nome}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">Alterar</f:facet>
-					<h:commandButton value="editar"
-						action="#{autorBean.alterarAutor(autor)}" />
-				</h:column>
+			<p:dataList value="#{autorBean.autores}" var="autor"
+				type="definition">
+				<f:facet name="header">
+					Autores
+				</f:facet>
 
-				<h:column>
-					<f:facet name="header">Desativar</f:facet>
-					<h:commandButton value="desativar"
-						action="#{autorBean.desativarAutor(autor)}" />
-				</h:column>
+				<p:commandButton icon="fa fa-fw fa-edit" update=":dadosDoAutor"
+					action="#{autorBean.alterarAutor(autor)}" />
 
-			</h:dataTable>
+				<p:commandButton icon="fa fa-fw fa-remove" update=":listaDeAutores"
+					action="#{autorBean.desativarAutor(autor)}" />
+				
+				#{autor.nome} - #{autor.email}
+			
+			</p:dataList>
+
 		</h:form>
 	</ui:define>
 	<ui:define name="rodape">Cadastro de autor</ui:define>
